@@ -6,8 +6,34 @@
     <title>Todo</title>
   </head>
   <body>
-    <div id="app">
-      <h1>Todo</h1>
+    <div class="wrapper">
+      <header class="header">
+        <div class="header__container">
+          <div class="header__logo">
+            <img
+              src="/public/images/logo.svg"
+              alt="Иконка Книги Контактов"
+              class="header__icon"
+            />
+            <h1 class="header__title">Книга контактов</h1>
+          </div>
+          <nav class="header__actions">
+            <button type="button" class="header__button header__button-add">
+              <span>Добавить контакт</span>
+              <img src="/public/images/plus.svg" alt="plus" />
+            </button>
+            <button type="button" class="header__button header__button-groups">
+              Группы
+            </button>
+          </nav>
+        </div>
+      </header>
+      <main class="main">
+        <div class="maim__container"></div>
+        <div class="text-wrapper">
+          <p class="text">Список контактов пуст</p>
+        </div>
+      </main>
     </div>
     <script type="module" src="/src/main.ts"></script>
   </body>

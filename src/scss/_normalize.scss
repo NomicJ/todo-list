@@ -1,3 +1,4 @@
+@use "_fonts.scss";
 * {
   padding: 0;
   margin: 0;
@@ -26,11 +27,13 @@ aside {
 }
 html,
 body {
+  font-family: "Circe";
   height: 100%;
   width: 100%;
   font-size: 100%;
   line-height: 1;
   font-size: 14px;
+  background-color: #f6f7f9;
   -ms-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
@@ -39,6 +42,7 @@ input,
 button,
 textarea {
   font-family: inherit;
+  color: #ffffff;
 }
 input::-ms-clear {
   display: none;
@@ -61,7 +65,10 @@ ul li {
   list-style: none;
 }
 img {
-  vertical-align: top;
+  // vertical-align: top;
+  display: block;
+  max-width: 100%;
+  height: auto;
 }
 h1,
 h2,
