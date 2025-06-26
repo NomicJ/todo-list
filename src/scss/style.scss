@@ -1,0 +1,6 @@
+@use "variables.scss" as *;
+@use "normalize.css" as *;
+
+body {
+  background-color: $color-primary;
+}
