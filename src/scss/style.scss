@@ -11,7 +11,7 @@
 
   &__container {
     display: flex;
-    justify-content: space-between;
+    gap: 16px;
     align-items: center;
     flex-wrap: wrap;
     max-width: 1160px;
@@ -34,11 +34,6 @@
     font-size: 18px;
   }
 
-  &__actions {
-    display: flex;
-    gap: 16px;
-  }
-
   &__button {
     padding: 9px 20px;
     display: flex;
@@ -49,6 +44,7 @@
     transition: background-color 0.2s ease;
 
     &-add {
+      margin-left: auto;
       order: 1;
       background-color: $color-red;
       max-width: 178px;
@@ -64,6 +60,26 @@
       &:hover {
         background-color: $color-darkblue;
       }
+    }
+  }
+  @media (max-width: 567px) {
+    &__container {
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    &__button-groups {
+      order: 1;
+    }
+
+    &__button-add {
+      padding: 15px;
+      justify-content: center;
+      margin-top: 24px;
+      order: 2;
+      max-width: 100%;
+      flex: 1 1 100%;
     }
   }
 }
