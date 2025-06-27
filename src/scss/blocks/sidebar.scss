@@ -1,0 +1,150 @@
+@use "../_variables.scss" as *;
+
+.sidebar {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 20;
+
+  background-color: $color-light;
+  width: 312px;
+  height: 100vh;
+  padding: 0 24px;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    height: 72px;
+    width: 100%;
+    position: relative;
+
+    &::after {
+      position: absolute;
+      content: "";
+      bottom: 0;
+      left: -24px;
+
+      padding-bottom: 1px;
+      width: 312px;
+      background-color: $color-dark;
+      opacity: 10%;
+    }
+  }
+
+  &__title {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 120%;
+    letter-spacing: 0px;
+  }
+  &__close {
+    position: relative;
+    width: 14px;
+    height: 14px;
+    background: transparent;
+    opacity: 0.3;
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 16px;
+      height: 2px;
+      background-color: $color-dark;
+      transform-origin: center;
+    }
+
+    &::before {
+      transform: translate(-50%, -50%) rotate(45deg);
+    }
+
+    &::after {
+      transform: translate(-50%, -50%) rotate(-45deg);
+    }
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 24px;
+
+    height: calc(100vh - 115px);
+  }
+
+  &__group {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  &__input {
+    width: 100%;
+    padding: 10px 12px;
+    height: 38px;
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 6px;
+  }
+
+  &__actions {
+    align-self: flex-end;
+    display: flex;
+    gap: 12px;
+
+    margin-top: auto;
+  }
+  &__button {
+    padding: 10px 19px;
+    border-radius: 6px;
+    font-weight: 700;
+    transition: background-color 0.2s ease;
+
+    &-add {
+      color: $color-blue;
+      &:hover {
+        background-color: rgba(0, 91, 254, 0.1);
+      }
+    }
+    &-save {
+      background-color: $color-blue;
+      color: $color-light;
+      &:hover {
+        background-color: $color-darkblue;
+      }
+    }
+  }
+
+  &__delete {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 38px;
+    border-radius: 6px;
+
+    border: 1px solid rgba(0, 0, 0, 0.05);
+
+    transition: all 0.4s ease;
+
+    &:not(:disabled):hover {
+      background-color: #ea3d2f;
+
+      border: none;
+      svg {
+        color: $color-light;
+        path {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+
+.active {
+  display: block;
+}

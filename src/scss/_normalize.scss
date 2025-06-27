@@ -31,7 +31,7 @@ body {
   height: 100%;
   width: 100%;
   font-size: 100%;
-  line-height: 1;
+  line-height: 130%;
   font-size: 14px;
   background-color: #f6f7f9;
   -ms-text-size-adjust: 100%;
@@ -42,12 +42,12 @@ input,
 button,
 textarea {
   font-family: inherit;
-  color: #ffffff;
 }
 input::-ms-clear {
   display: none;
 }
 button {
+  background: none;
   cursor: pointer;
 }
 button::-moz-focus-inner {
