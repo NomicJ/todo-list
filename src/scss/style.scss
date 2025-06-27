@@ -4,16 +4,4 @@
 @use "./blocks/header.scss" as *;
 @use "./blocks/sidebar.scss" as *;
 @use "./blocks/custom-select.scss" as *;
-
-.main {
-}
-.text-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 90vh;
-}
-.text {
-  font-size: 18px;
-  color: $color-dark;
-}
+@use "./blocks/contacts.scss" as *;

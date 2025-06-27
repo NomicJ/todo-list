@@ -1,0 +1,151 @@
+@use "../_variables.scss" as *;
+
+.contacts {
+  display: flex;
+  justify-content: center;
+
+  &__container {
+    max-width: 1130px;
+    width: 100%;
+    background-color: $color-light;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+    padding: 24px;
+    margin: 56px 16px;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+  }
+
+  &__title {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 120%;
+    letter-spacing: 0%;
+    &-active {
+      color: $color-blue;
+    }
+  }
+  &__arrow {
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-top: 24px;
+  }
+  &__item {
+    padding-top: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    width: 100%;
+  }
+  &__info {
+    display: flex;
+    width: 100%;
+  }
+  &__name {
+    opacity: 0.5;
+    font-size: 18px;
+    line-height: 120%;
+    letter-spacing: 0%;
+  }
+  &__phone {
+    margin-left: auto;
+    margin-right: 34px;
+
+    font-size: 18px;
+    line-height: 120%;
+    letter-spacing: 0%;
+  }
+  &__actions {
+    display: flex;
+    gap: 8px;
+  }
+
+  &__edit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 6px;
+
+    border: 1px solid rgba(0, 0, 0, 0.1);
+
+    transition: all 0.4s ease;
+
+    &:not(:disabled):hover {
+      background-color: $color-blue;
+
+      border: none;
+      svg {
+        color: $color-light;
+        path {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  &__delete {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 6px;
+
+    border: 1px solid rgba(0, 0, 0, 0.1);
+
+    transition: all 0.4s ease;
+
+    &:not(:disabled):hover {
+      background-color: #ea3d2f;
+
+      border: none;
+      svg {
+        color: $color-light;
+        path {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  &__arrow-icon {
+    transition: transform 0.3s ease;
+  }
+
+  &__list-collapsed {
+    display: none;
+  }
+
+  &__arrow-rotated .contacts__arrow-icon {
+    transform: rotate(180deg);
+  }
+
+  @media (max-width: 567px) {
+    &__container {
+      margin-top: 100px;
+    }
+  }
+}
+
+.text-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 90vh;
+}
+.text {
+  font-size: 18px;
+  color: $color-dark;
+}
