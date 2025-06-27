@@ -2,7 +2,7 @@
 @use "_normalize.scss" as *;
 
 .header {
-  background-color: #ffffff;
+  background-color: $color-light;
   font-weight: 700;
   padding: 16px 0px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -94,5 +94,5 @@
 }
 .text {
   font-size: 18px;
-  color: #000000;
+  color: $color-dark;
 }
