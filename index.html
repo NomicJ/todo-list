@@ -29,7 +29,7 @@
         </div>
       </header>
 
-      <aside class="sidebar active">
+      <aside class="sidebar">
         <div class="sidebar__header">
           <h2 class="sidebar__title">Группы контактов</h2>
           <button
@@ -93,7 +93,7 @@
         </form>
       </aside>
 
-      <aside class="sidebar">
+      <aside class="sidebar active">
         <div class="sidebar__header">
           <h2 class="sidebar__title">Добавление контакта</h2>
           <button
@@ -112,9 +112,38 @@
             type="text"
             placeholder="Введите номер"
           />
-          <select name="" id="">
-            <option value="">Введите группу</option>
-          </select>
+
+          <div class="custom-select">
+            <div class="custom-select__wrapper" tabindex="0">
+              <div class="custom-select__selected">
+                <span>Выберите группу</span>
+                <div class="custom-select__arrow">
+                  <svg
+                    width="13"
+                    height="8"
+                    viewBox="0 0 13 8"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M10.8849 0.294983L6.29492 4.87498L1.70492 0.294983L0.294922 1.70498L6.29492 7.70498L12.2949 1.70498L10.8849 0.294983Z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </div>
+              </div>
+
+              <ul class="custom-select__dropdown">
+                <li class="custom-select__option">Группа 1</li>
+                <li class="custom-select__option custom-select__option-active">
+                  Группа 2
+                </li>
+                <li class="custom-select__option">Группа 3</li>
+                <li class="custom-select__option">Группа 4</li>
+                <li class="custom-select__option">Группа 5</li>
+              </ul>
+            </div>
+          </div>
 
           <div class="sidebar__actions">
             <button class="sidebar__button sidebar__button-save" type="submit">

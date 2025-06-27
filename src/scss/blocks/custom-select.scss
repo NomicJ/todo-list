@@ -1,0 +1,60 @@
+@use "../_variables.scss" as *;
+
+.custom-select {
+  &__wrapper {
+    position: relative;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 6px;
+    user-select: none;
+    padding: 10px 12px;
+  }
+
+  &__selected {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__arrow {
+    display: inline-block;
+    margin-left: 8px;
+    transition: transform 0.3s ease;
+    transform-origin: center;
+
+    svg {
+      opacity: 0.5;
+    }
+  }
+
+  &__wrapper-active .custom-select__arrow {
+    transform: rotate(180deg);
+  }
+
+  &__dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    margin-top: 8px;
+    background-color: rgba(0, 0, 0, 0.05);
+
+    border-radius: 6px;
+    z-index: 10;
+    display: none;
+
+    &-visible {
+      display: block;
+    }
+  }
+
+  &__option {
+    padding: 10px 12px;
+
+    &:hover {
+      background-color: #e4e3e3;
+    }
+
+    &-active {
+    }
+  }
+}
