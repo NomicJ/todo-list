@@ -143,6 +143,10 @@
       }
     }
   }
+  @media (max-width: 567px) {
+    right: 0;
+    left: auto;
+  }
 }
 
 .active {
