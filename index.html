@@ -18,18 +18,26 @@
             <h1 class="header__title">Книга контактов</h1>
           </div>
           <!-- <nav class="header__actions"> -->
-          <button type="button" class="header__button header__button-add">
+          <button
+            type="button"
+            class="header__button header__button-add"
+            data-open-sidebar="contact"
+          >
             <span>Добавить контакт</span>
             <img src="/public/images/plus.svg" alt="plus" />
           </button>
-          <button type="button" class="header__button header__button-groups">
+          <button
+            type="button"
+            class="header__button header__button-groups"
+            data-open-sidebar="groups"
+          >
             Группы
           </button>
           <!-- </nav> -->
         </div>
       </header>
 
-      <aside class="sidebar">
+      <aside class="sidebar" data-sidebar="groups">
         <div class="sidebar__header">
           <h2 class="sidebar__title">Группы контактов</h2>
           <button
@@ -93,16 +101,14 @@
         </form>
       </aside>
 
-      <aside class="sidebar">
+      <aside class="sidebar" data-sidebar="contact">
         <div class="sidebar__header">
           <h2 class="sidebar__title">Добавление контакта</h2>
           <button
             class="sidebar__close"
             type="button"
             aria-label="Закрыть боковую панель"
-          >
-            X
-          </button>
+          ></button>
         </div>
 
         <form class="sidebar__form">
@@ -275,7 +281,7 @@
         <p class="text">Список контактов пуст</p>
       </div> -->
 
-      <!-- <div class="overlay"></div> -->
+      <div class="overlay"></div>
     </div>
     <script type="module" src="/src/main.ts"></script>
   </body>

@@ -51,3 +51,37 @@ export function setupContactsToggle(): void {
 }
 
 setupContactsToggle();
+
+export function setupSidebarToggle(): void {
+  const openButtons = document.querySelectorAll("[data-open-sidebar]");
+  const sidebars = document.querySelectorAll(".sidebar[data-sidebar]");
+  const closeButtons = document.querySelectorAll(".sidebar__close");
+  const overlay = document.querySelector(".overlay") as HTMLElement | null;
+
+  openButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const targetKey = btn.getAttribute("data-open-sidebar");
+      const targetSidebar = document.querySelector(
+        `.sidebar[data-sidebar="${targetKey}"]`
+      );
+      if (!targetSidebar || !overlay) return;
+
+      sidebars.forEach((s) => s.classList.remove("active"));
+      targetSidebar.classList.add("active");
+      overlay.classList.add("active");
+    });
+  });
+
+  const closeSidebar = () => {
+    sidebars.forEach((s) => s.classList.remove("active"));
+    overlay?.classList.remove("active");
+  };
+
+  closeButtons.forEach((btn) => {
+    btn.addEventListener("click", closeSidebar);
+  });
+
+  overlay?.addEventListener("click", closeSidebar);
+}
+
+setupSidebarToggle();
