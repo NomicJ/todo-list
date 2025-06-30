@@ -1,4 +1,4 @@
-import "./scss/style.scss";
+// import "./scss/style.scss";
 import * as storage from "./ts/storage";
 
 import {
