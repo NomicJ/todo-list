@@ -3,11 +3,38 @@ import { groupsHandler } from "./groups.js";
 import { updateGroupsStorage } from "./storage.js";
 import { updateContactsStorage } from "./storage.js";
 
-function createNewGroup(title) {
+function createNewGroup(title: string) {
+  const cleanTitle = title.trim().toLowerCase();
+
+  const isDuplicate = groupsHandler.items.some(
+    (group) => group.title.trim().toLowerCase() === cleanTitle
+  );
+  if (isDuplicate) {
+    showToast("Группа с таким названием уже существует!", "error");
+    return null;
+  }
+
   groupsHandler.groupIdCount++;
   const newGroup = groupsHandler.createGroup(groupsHandler.groupIdCount, title);
   const newGroupIndex = groupsHandler.addGroup(newGroup);
   return newGroupIndex;
+}
+
+function showToast(message: string, type: "success" | "error" = "success") {
+  const toast = document.createElement("div");
+  toast.className = `toast toast--${type}`;
+  toast.textContent = message;
+
+  document.body.appendChild(toast);
+
+  setTimeout(() => {
+    toast.classList.add("visible");
+  }, 10);
+
+  setTimeout(() => {
+    toast.classList.remove("visible");
+    setTimeout(() => toast.remove(), 300);
+  }, 3000);
 }
 
 // =================================
@@ -182,4 +209,4 @@ function deleteGroup(index) {
   renderGroups();
 }
 
-export { renderGroups };
+export { renderGroups, showToast };

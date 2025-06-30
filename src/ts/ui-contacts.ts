@@ -1,5 +1,6 @@
 import { contactsHandler } from "./contacts.js";
 import { groupsHandler } from "./groups.js";
+import { showToast } from "./ui-groups.js";
 
 import { updateContactsStorage } from "./storage.js";
 import IMask from "imask";
@@ -136,6 +137,22 @@ function getNewContactData(e) {
 
   if (!fullName || !phone || !group || group === "Выберите группу") {
     alert("Пожалуйста, заполните все поля.");
+    return;
+  }
+  const cleanPhone = phone.replace(/\D/g, "");
+  const isDuplicate = contactsHandler.items.some(
+    (c) => c.phoneNumber.replace(/\D/g, "") === cleanPhone
+  );
+
+  if (isDuplicate) {
+    showToast("Контакт с таким номером уже существует!", "error");
+
+    const phoneInput = e.currentTarget.elements.namedItem(
+      "phone"
+    ) as HTMLInputElement | null;
+    phoneInput?.classList.add("input--error");
+    phoneInput?.focus();
+
     return;
   }
 

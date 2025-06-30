@@ -166,3 +166,18 @@
   font-size: 18px;
   color: $color-dark;
 }
+
+.visible {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 60px;
+  border-radius: 6px;
+  z-index: 322;
+  background-color: $color-light;
+  color: $color-dark;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
