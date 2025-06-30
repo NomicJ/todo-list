@@ -5,9 +5,11 @@ import {
   setupContactsToggle,
   setupSidebarToggle,
   initCustomSelect,
+  initPhoneMask,
 } from "./ts/ui-contacts";
 
 storage.initStorage();
 setupSidebarToggle();
 setupContactsToggle();
 initCustomSelect();
+initPhoneMask();

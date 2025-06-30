@@ -2,6 +2,7 @@ import { contactsHandler } from "./contacts.js";
 import { groupsHandler } from "./groups.js";
 
 import { updateContactsStorage } from "./storage.js";
+import IMask from "imask";
 
 const sidebars = document.querySelectorAll(".sidebar[data-sidebar]");
 const overlay = document.querySelector(".overlay") as HTMLElement | null;
@@ -248,9 +249,26 @@ function setupSidebarToggle(): void {
   overlay?.addEventListener("click", closeSidebar);
 }
 
+function initPhoneMask(): void {
+  const newContactForm = document.getElementById(
+    "newContactForm"
+  ) as HTMLFormElement | null;
+  if (!newContactForm) return;
+
+  const phoneInput = newContactForm.elements.namedItem(
+    "phone"
+  ) as HTMLInputElement | null;
+  if (!phoneInput) return;
+
+  IMask(phoneInput, {
+    mask: "+{7} (000) 000 - 00 - 00",
+  });
+}
+
 export {
   renderContacts,
   setupContactsToggle,
   setupSidebarToggle,
   initCustomSelect,
+  initPhoneMask,
 };
