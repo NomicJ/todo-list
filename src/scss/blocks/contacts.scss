@@ -2,7 +2,10 @@
 
 .contacts {
   display: flex;
-  justify-content: center;
+  // justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 24px;
 
   &__container {
     max-width: 1130px;
@@ -11,7 +14,12 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 6px;
     padding: 24px;
-    margin: 56px 16px;
+
+    margin: 0px 16px;
+
+    &:first-child {
+      margin: 56px 16px 0px;
+    }
   }
 
   &__header {
