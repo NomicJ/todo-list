@@ -1,8 +1,4 @@
-interface Contact {
-  username: string;
-  phoneNumber: number;
-  groupIndex: number;
-}
+import type { Contact } from "./types";
 
 class ContactsHandler {
   items: Contact[];
@@ -23,7 +19,7 @@ class ContactsHandler {
     return this.items.push(contact) - 1;
   }
 
-  removeContact(phoneNumber: string): Contact[] | null {
+  removeContact(phoneNumber: number): Contact[] | null {
     const index = this.items.findIndex(
       (contact) => contact.phoneNumber === phoneNumber
     );

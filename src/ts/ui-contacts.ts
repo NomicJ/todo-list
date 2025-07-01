@@ -5,6 +5,17 @@ import { showToast } from "./ui-groups.js";
 import { updateContactsStorage } from "./storage.js";
 import IMask from "imask";
 
+function formatPhoneNumber(phone: number): string {
+  const digits = phone.toString().padStart(11, "0");
+  const countryCode = digits.slice(0, 1);
+  const operatorCode = digits.slice(1, 4);
+  const part1 = digits.slice(4, 7);
+  const part2 = digits.slice(7, 9);
+  const part3 = digits.slice(9, 11);
+
+  return `+${countryCode} (${operatorCode}) ${part1} - ${part2} - ${part3}`;
+}
+
 const sidebars = document.querySelectorAll(".sidebar[data-sidebar]");
 const overlay = document.querySelector(".overlay") as HTMLElement | null;
 const closeSidebar = () => {
@@ -28,7 +39,7 @@ function renderContacts() {
       (contact) => contact.groupIndex === groupId
     );
 
-    groupContacts.forEach((contact, index) => {
+    groupContacts.forEach((contact) => {
       const contactElement = createContactUI(
         contact.username,
         contact.phoneNumber
@@ -38,7 +49,7 @@ function renderContacts() {
   });
 }
 
-function createContactUI(name: string, phone: string): HTMLLIElement {
+function createContactUI(name: string, phone: number): HTMLLIElement {
   const li = document.createElement("li");
   li.classList.add("contacts__item");
 
@@ -56,7 +67,8 @@ function createContactUI(name: string, phone: string): HTMLLIElement {
 
   const phoneSpan = document.createElement("span");
   phoneSpan.classList.add("contacts__phone");
-  phoneSpan.textContent = phone;
+  console.log("@@@@@@@ " + phone);
+  phoneSpan.textContent = `${formatPhoneNumber(phone)}`;
 
   const editBtn = document.createElement("button");
   editBtn.classList.add("contacts__edit");
@@ -94,7 +106,7 @@ function createContactUI(name: string, phone: string): HTMLLIElement {
   editBtn.addEventListener("click", () => {
     const form = document.getElementById("newContactForm") as HTMLFormElement;
     (form.elements.namedItem("fullName") as HTMLInputElement).value = name;
-    (form.elements.namedItem("phone") as HTMLInputElement).value = phone;
+    (form.elements.namedItem("phone") as HTMLInputElement).value = `${phone}`;
 
     const customSelect = form.querySelector(".custom-select__selected span");
 
@@ -122,14 +134,18 @@ function createContactUI(name: string, phone: string): HTMLLIElement {
 }
 
 const newContactForm = document.getElementById("newContactForm");
-newContactForm.addEventListener("submit", getNewContactData);
 
-function getNewContactData(e) {
+if (newContactForm) {
+  newContactForm.addEventListener("submit", getNewContactData);
+}
+
+function getNewContactData(e: any) {
   e.preventDefault();
 
   const data = new FormData(e.currentTarget);
-  const fullName = data.get("fullName")?.trim();
-  const phone = data.get("phone")?.trim();
+
+  const fullName = (data.get("fullName") as string)?.trim();
+  const phone = (data.get("phone") as string)?.trim();
 
   const group = e.currentTarget
     .querySelector(".custom-select__selected span")
@@ -139,9 +155,11 @@ function getNewContactData(e) {
     alert("Пожалуйста, заполните все поля.");
     return;
   }
-  const cleanPhone = phone.replace(/\D/g, "");
+  // const cleanPhone = Number(phone.replace(/\D/g, ""));
+  const cleanPhone = Number(phone.replace(/\D/g, ""));
+
   const isDuplicate = contactsHandler.items.some(
-    (c) => c.phoneNumber.replace(/\D/g, "") === cleanPhone
+    (c) => c.phoneNumber === cleanPhone
   );
 
   if (isDuplicate) {
@@ -156,17 +174,20 @@ function getNewContactData(e) {
     return;
   }
 
-  composeNewContact(fullName, phone, group);
+  composeNewContact(fullName, cleanPhone, group);
   e.currentTarget.reset();
 
   closeSidebar();
 }
 
-function composeNewContact(fullName, phone, group) {
+function composeNewContact(fullName: string, phone: number, group: string) {
   const groupId = groupsHandler.items.find((item) => item.title === group);
 
+  if (!groupId) {
+    return;
+  }
   const newContact = contactsHandler.createContact(fullName, phone, groupId.id);
-  const newContactIndex = contactsHandler.addContact(newContact);
+  contactsHandler.addContact(newContact);
   updateContactsStorage();
 
   const safeId = `contacts-${groupId.id}`;

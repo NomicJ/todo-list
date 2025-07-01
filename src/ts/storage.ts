@@ -2,13 +2,16 @@ import { contactsHandler } from "./contacts.js";
 import { groupsHandler } from "./groups.js";
 import { renderContacts } from "./ui-contacts.js";
 import { renderGroups } from "./ui-groups.js";
+import type { Contact, Group } from "./types";
 
 function initStorage() {
-  groupsHandler.items = JSON.parse(localStorage.getItem("groups"));
-  contactsHandler.items = JSON.parse(localStorage.getItem("contacts"));
+  groupsHandler.items = JSON.parse(localStorage.getItem("groups") || "null");
+  contactsHandler.items = JSON.parse(
+    localStorage.getItem("contacts") || "null"
+  );
 
   if (groupsHandler.items === null || contactsHandler.items === null) {
-    const testGroupsData = [
+    const testGroupsData: Group[] = [
       {
         id: 0,
         title: "Друзья",
@@ -18,7 +21,7 @@ function initStorage() {
         title: "Коллеги",
       },
     ];
-    const testContactsData = [
+    const testContactsData: Contact[] = [
       contactsHandler.createContact("Семенов Дарья Сергеевна", 77782344483, 0),
       contactsHandler.createContact("Петров Игорь Генадьевич", 77786342413, 1),
     ];

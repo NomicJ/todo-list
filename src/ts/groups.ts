@@ -1,7 +1,4 @@
-interface Group {
-  id: number;
-  title: string;
-}
+import type { Group } from "./types";
 
 class GroupsHandler {
   items: Group[];

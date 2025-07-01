@@ -2,6 +2,7 @@ import { contactsHandler } from "./contacts.js";
 import { groupsHandler } from "./groups.js";
 import { updateGroupsStorage } from "./storage.js";
 import { updateContactsStorage } from "./storage.js";
+import type { Group } from "./types.js";
 
 function createNewGroup(title: string) {
   const cleanTitle = title.trim().toLowerCase();
@@ -49,32 +50,38 @@ const selectUserGroups = document.getElementsByClassName(
   "custom-select__dropdown"
 )[0];
 
-newGroupBtn.addEventListener("click", showNewGroupForm);
+if (newGroupBtn) {
+  newGroupBtn.addEventListener("click", showNewGroupForm);
+}
 
 function showNewGroupForm() {
-  const title = (document.getElementById("inputGroup").value = "");
+  (document.getElementById("inputGroup") as HTMLInputElement).value = "";
 
   newGroupForm.classList.add("active");
 }
 
-document.getElementById("saveGroup").addEventListener("click", () => {
-  const title = document.getElementById("inputGroup").value;
+(document.getElementById("saveGroup") as HTMLButtonElement).addEventListener(
+  "click",
+  () => {
+    const title = (document.getElementById("inputGroup") as HTMLInputElement)
+      .value;
 
-  composeNewGroup(title);
-  newGroupForm.classList.remove("active");
-});
+    composeNewGroup(title);
+    newGroupForm.classList.remove("active");
+  }
+);
 
 function composeNewGroup(title: string) {
   const groupIndex = createNewGroup(title);
+  if (groupIndex === null) {
+    return;
+  }
   const groupUI = createGroupUI(groupsHandler.items[groupIndex], groupIndex);
   const groupMainUI = createGroupMainUI(
     groupsHandler.items[groupIndex],
     groupIndex
   );
-  const groupSelectUI = createGroupSelectUI(
-    groupsHandler.items[groupIndex],
-    groupIndex
-  );
+  const groupSelectUI = createGroupSelectUI(groupsHandler.items[groupIndex]);
   sidebarUserGroups.prepend(groupUI);
   mainUserGroups.prepend(groupMainUI);
   selectUserGroups.prepend(groupSelectUI);
@@ -94,7 +101,7 @@ function renderGroups() {
       const curGroup = groupsHandler.items[i];
       fragment.prepend(createGroupUI(curGroup, curGroup.id));
       fragment2.prepend(createGroupMainUI(curGroup, curGroup.id));
-      fragment3.prepend(createGroupSelectUI(curGroup, curGroup.id));
+      fragment3.prepend(createGroupSelectUI(curGroup));
     }
   }
 
@@ -108,7 +115,7 @@ function renderGroups() {
   selectUserGroups.prepend(fragment3);
 }
 
-function createGroupUI(group, groupIndex) {
+function createGroupUI(group: Group, groupIndex: number) {
   const item = document.createElement("li");
 
   const groupTitle = document.createElement("div");
@@ -137,7 +144,7 @@ function createGroupUI(group, groupIndex) {
 
   item.append(groupTitle, deleteGroupBtn);
   item.addEventListener("click", (e) => {
-    if (e.target.closest(".sidebar__delete")) {
+    if ((e.target as HTMLElement).closest(".sidebar__delete")) {
       deleteGroup(groupIndex);
       location.reload();
       return;
@@ -146,7 +153,7 @@ function createGroupUI(group, groupIndex) {
 
   return item;
 }
-function createGroupMainUI(group, groupIndex) {
+function createGroupMainUI(group: Group, groupIndex: number) {
   const item = document.createElement("div");
 
   const headerContainer = document.createElement("div");
@@ -189,7 +196,7 @@ function createGroupMainUI(group, groupIndex) {
   return item;
 }
 
-function createGroupSelectUI(group, groupIndex) {
+function createGroupSelectUI(group: Group) {
   const item = document.createElement("li");
 
   item.classList.add("custom-select__option");
@@ -199,7 +206,7 @@ function createGroupSelectUI(group, groupIndex) {
   return item;
 }
 
-function deleteGroup(index) {
+function deleteGroup(index: number) {
   contactsHandler.removeGroupContacts(index);
 
   groupsHandler.removeGroupById(index);
