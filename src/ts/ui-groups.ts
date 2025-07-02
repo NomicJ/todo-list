@@ -143,16 +143,51 @@ function createGroupUI(group: Group, groupIndex: number) {
               </svg>`;
 
   item.append(groupTitle, deleteGroupBtn);
+
   item.addEventListener("click", (e) => {
     if ((e.target as HTMLElement).closest(".sidebar__delete")) {
-      deleteGroup(groupIndex);
-      location.reload();
-      return;
+      e.preventDefault();
+      showConfirmModal(() => {
+        deleteGroup(groupIndex);
+        location.reload();
+      });
     }
   });
 
   return item;
 }
+function showConfirmModal(onConfirm: () => void) {
+  const modal = document.getElementById("confirmModal") as HTMLElement;
+  const confirmBtn = document.getElementById("confirmDeleteBtn") as HTMLElement;
+  const cancelBtn = document.getElementById("cancelDeleteBtn") as HTMLElement;
+
+  modal.classList.add("show");
+
+  const cleanup = () => {
+    modal.classList.remove("show");
+    confirmBtn.removeEventListener("click", handleConfirm);
+    cancelBtn.removeEventListener("click", handleCancel);
+  };
+
+  const handleConfirm = () => {
+    onConfirm();
+    cleanup();
+  };
+
+  const handleCancel = () => {
+    cleanup();
+  };
+  const handleOverlayClick = (e: MouseEvent) => {
+    if ((e.target as HTMLElement).id === "confirmModal") {
+      cleanup();
+    }
+  };
+
+  confirmBtn.addEventListener("click", handleConfirm);
+  cancelBtn.addEventListener("click", handleCancel);
+  modal.addEventListener("click", handleOverlayClick);
+}
+
 function createGroupMainUI(group: Group, groupIndex: number) {
   const item = document.createElement("div");
 
