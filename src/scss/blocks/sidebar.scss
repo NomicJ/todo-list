@@ -185,3 +185,16 @@
 .active {
   display: block;
 }
+
+.input-error {
+  border: 1px solid #ea3d2f !important;
+}
+
+.error-message {
+  color: #ea3d2f;
+  margin-top: -12px;
+  display: none;
+  &.active {
+    display: block;
+  }
+}

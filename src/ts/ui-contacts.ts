@@ -67,7 +67,7 @@ function createContactUI(name: string, phone: number): HTMLLIElement {
 
   const phoneSpan = document.createElement("span");
   phoneSpan.classList.add("contacts__phone");
-  console.log("@@@@@@@ " + phone);
+
   phoneSpan.textContent = `${formatPhoneNumber(phone)}`;
 
   const editBtn = document.createElement("button");
@@ -151,11 +151,46 @@ function getNewContactData(e: any) {
     .querySelector(".custom-select__selected span")
     ?.textContent.trim();
 
-  if (!fullName || !phone || !group || group === "Выберите группу") {
-    alert("Пожалуйста, заполните все поля.");
-    return;
+  let isValid = true;
+  const inputs = e.currentTarget.querySelectorAll(".sidebar__input");
+  inputs.forEach((input: HTMLInputElement) =>
+    input.classList.remove("input-error")
+  );
+
+  const errorMessages = e.currentTarget.querySelectorAll(".error-message");
+  errorMessages.forEach((msg: HTMLElement) => msg.classList.remove("active"));
+
+  if (!fullName) {
+    showInputError(e.currentTarget, "fullName");
+    isValid = false;
   }
-  // const cleanPhone = Number(phone.replace(/\D/g, ""));
+
+  if (!phone) {
+    showInputError(e.currentTarget, "phone");
+    isValid = false;
+  }
+
+  if (!group || group === "Выберите группу") {
+    const groupSelect = e.currentTarget.querySelector(
+      ".custom-select__wrapper"
+    );
+    if (groupSelect) groupSelect.classList.add("input-error");
+
+    isValid = false;
+  } else {
+    const groupSelect = e.currentTarget.querySelector(
+      ".custom-select__wrapper"
+    );
+    if (groupSelect) groupSelect.classList.remove("input-error");
+  }
+
+  if (!isValid) return;
+
+  // if (!fullName || !phone || !group || group === "Выберите группу") {
+  //   alert("Пожалуйста, заполните все поля.");
+  //   return;
+  // }
+
   const cleanPhone = Number(phone.replace(/\D/g, ""));
 
   const isDuplicate = contactsHandler.items.some(
@@ -178,6 +213,23 @@ function getNewContactData(e: any) {
   e.currentTarget.reset();
 
   closeSidebar();
+}
+
+function showInputError(form: HTMLFormElement, name: string) {
+  const input = form.querySelector(`[name="${name}"]`) as HTMLInputElement;
+  const error = form.querySelector(`.error-message[data-error-for="${name}"]`);
+
+  input?.classList.add("input-error");
+  if (error) error.classList.add("active");
+
+  input?.addEventListener(
+    "input",
+    () => {
+      input.classList.remove("input-error");
+      if (error) error.classList.remove("active");
+    },
+    { once: true }
+  );
 }
 
 function composeNewContact(fullName: string, phone: number, group: string) {
